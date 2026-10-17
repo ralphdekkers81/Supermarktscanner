@@ -1,0 +1,14 @@
+[
+  { "id": "ah",         "name": "Albert Heijn", "url": "https://www.ah.nl/bonus",                          "color": "#00A0E2", "enabled": true },
+  { "id": "jumbo",      "name": "Jumbo",        "url": "https://www.jumbo.com/aanbiedingen/nu",            "color": "#EEB717", "enabled": true },
+  { "id": "lidl",       "name": "Lidl",         "url": "https://www.lidl.nl/aanbiedingen",                 "color": "#0050AA", "enabled": true },
+  { "id": "aldi",       "name": "Aldi",         "url": "https://www.aldi.nl/aanbiedingen.html",            "color": "#00205B", "enabled": true },
+  { "id": "plus",       "name": "Plus",         "url": "https://www.plus.nl/aanbiedingen",                 "color": "#E2001A", "enabled": true },
+  { "id": "dirk",       "name": "Dirk",         "url": "https://www.dirk.nl/aanbiedingen",                 "color": "#D2232A", "enabled": true },
+  { "id": "janlinders", "name": "Jan Linders",  "url": "https://www.janlinders.nl/aanbiedingen",           "color": "#E30613", "enabled": true },
+  { "id": "hoogvliet",  "name": "Hoogvliet",    "url": "https://www.hoogvliet.com/aanbiedingen",           "color": "#E2001A", "enabled": true },
+  { "id": "coop",       "name": "Coop",         "url": "https://www.coop.nl/aanbiedingen",                 "color": "#F39200", "enabled": true },
+  { "id": "dekamarkt",  "name": "DekaMarkt",    "url": "https://www.dekamarkt.nl/aanbiedingen",            "color": "#E4002B", "enabled": true },
+  { "id": "vomar",      "name": "Vomar",        "url": "https://www.vomar.nl/aanbiedingen",                "color": "#E3051B", "enabled": false },
+  { "id": "poiesz",     "name": "Poiesz",       "url": "https://www.poiesz-supermarkten.nl/aanbiedingen",  "color": "#009640", "enabled": false }
+]

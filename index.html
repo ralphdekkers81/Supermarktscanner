@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Aanbiedingen deze week</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏷️</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EEF1EC; --surface:#FFFFFF; --ink:#18201D; --muted:#56635D; --line:#D5DCD7;
+  --tag:#FFD23F; --tag-ink:#1A1709; --go:#1D6B47; --go-ink:#FFFFFF; --warn:#A63C14; --photo:#FFFFFF;
+  --sans:"Bricolage Grotesque", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --num:"Barlow Condensed", "Arial Narrow", ui-sans-serif, system-ui, sans-serif;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root{ --bg:#121715; --surface:#1C2320; --ink:#E9EEEB; --muted:#9AA8A1; --line:#2E3833;
+    --tag:#F2C230; --tag-ink:#16130A; --go:#46A979; --go-ink:#0C1410; --warn:#F0895C; --photo:#F4F5F3; color-scheme:dark; }
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 140px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.45;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--go);outline-offset:2px}
+.wrap{max-width:1280px;margin:0 auto;padding:0 clamp(14px,3vw,32px)}
+
+header.top{padding:clamp(24px,5vw,56px) 0 18px}
+h1{font-weight:800;font-size:clamp(2.4rem,7vw,4.6rem);line-height:.95;letter-spacing:-.03em;margin:0 0 14px;font-variation-settings:"opsz" 96}
+h1 .week{display:inline-block;font-family:var(--num);font-weight:700;background:var(--tag);color:var(--tag-ink);padding:.02em .22em .06em;border-radius:6px;transform:rotate(-2deg);letter-spacing:0;margin-left:.08em}
+.lede{color:var(--muted);max-width:62ch;margin:0}
+.lede strong{color:var(--ink);font-weight:600}
+
+.bar{position:relative;z-index:5;background:var(--bg);padding:12px 0;border-bottom:1px solid var(--line)}
+.bar .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.search{flex:1 1 260px;min-width:0;position:relative}
+.search input{width:100%;padding:11px 14px 11px 40px;border:1.5px solid var(--line);border-radius:999px;background:var(--surface)}
+.search input:focus{border-color:var(--go);outline:none}
+.search svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--muted)}
+select{padding:10px 12px;border:1.5px solid var(--line);border-radius:999px;background:var(--surface)}
+.chips{display:flex;gap:6px;overflow-x:auto;padding:10px 0 2px;scrollbar-width:thin}
+.chip{flex:none;display:flex;align-items:center;gap:7px;padding:6px 12px 6px 10px;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);cursor:pointer;font-size:.92rem;white-space:nowrap}
+.chip .dot{width:10px;height:10px;border-radius:50%;background:var(--c,#888)}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chip small{color:inherit;opacity:.65;font-variant-numeric:tabular-nums}
+
+.layout{display:grid;grid-template-columns:1fr;gap:28px;padding:22px 0 80px}
+@media (min-width:1000px){.layout{grid-template-columns:1fr 320px}}
+.count{color:var(--muted);font-size:.92rem;margin:0 0 14px}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:14px}
+.item{background:var(--surface);border-radius:10px;display:flex;flex-direction:column;overflow:hidden;border-top:5px solid var(--c,#888);position:relative}
+.item.stale{opacity:.72}
+.photo{aspect-ratio:4/3;background:var(--photo);display:flex;align-items:center;justify-content:center;padding:10px}
+.photo img{max-width:100%;max-height:100%;object-fit:contain}
+.photo .ph{font-size:2rem;opacity:.35}
+.body{padding:10px 12px 12px;display:flex;flex-direction:column;gap:6px;flex:1}
+.store{font-size:.78rem;color:var(--muted);display:flex;justify-content:space-between;gap:6px}
+.name{font-weight:600;font-size:.97rem;line-height:1.25;margin:0;overflow-wrap:anywhere}
+.name a{color:inherit;text-decoration:none}
+.name a:hover{text-decoration:underline}
+.tag{align-self:flex-start;background:var(--tag);color:var(--tag-ink);border-radius:5px;padding:4px 9px 5px;transform:rotate(-1.5deg);margin-top:auto;display:flex;flex-direction:column;line-height:1.05;box-shadow:2px 2px 0 rgba(0,0,0,.12)}
+.tag .promo{font-weight:600;font-size:.82rem}
+.tag{max-width:100%}
+.tag .line{display:flex;flex-wrap:wrap;align-items:baseline;column-gap:6px}
+.tag .price{font-family:var(--num);font-weight:700;font-size:1.65rem;letter-spacing:.01em}
+.tag .was{font-family:var(--num);font-weight:600;font-size:.95rem;text-decoration:line-through;opacity:.7}
+.add{margin-top:8px;border:1.5px solid var(--go);color:var(--go);background:transparent;border-radius:999px;padding:6px 10px;cursor:pointer;font-weight:600;font-size:.88rem}
+.add[aria-pressed="true"]{background:var(--go);color:var(--go-ink)}
+.more{display:block;margin:22px auto 0;padding:10px 22px;border-radius:999px;border:1.5px solid var(--ink);background:transparent;cursor:pointer;font-weight:600}
+
+.empty{grid-column:1/-1;background:var(--surface);border-radius:12px;padding:28px;max-width:60ch}
+.empty h2{margin:0 0 8px;font-size:1.3rem}
+.empty p{margin:0 0 8px;color:var(--muted)}
+.empty code{background:var(--bg);padding:2px 6px;border-radius:4px;font-size:.9em}
+
+aside.list{background:var(--surface);border-radius:12px;padding:18px;align-self:start;position:sticky;top:calc(env(safe-area-inset-top,0px) + 150px);max-height:calc(100vh - 170px);overflow:auto}
+aside.list h2{margin:0 0 4px;font-size:1.25rem}
+aside.list .sum{color:var(--muted);font-size:.9rem;margin:0 0 12px}
+aside.list h3{font-size:.95rem;margin:14px 0 6px;display:flex;align-items:center;gap:8px}
+aside.list h3 .dot{width:10px;height:10px;border-radius:50%;background:var(--c)}
+aside.list ul{list-style:none;margin:0;padding:0}
+aside.list li{display:flex;gap:8px;align-items:flex-start;padding:6px 0;border-bottom:1px solid var(--line);font-size:.92rem}
+aside.list li span{flex:1}
+aside.list li em{font-style:normal;color:var(--muted);font-size:.84rem;display:block}
+aside.list li b{font-family:var(--num);font-size:1.1rem;font-weight:700}
+.x{border:0;background:transparent;cursor:pointer;color:var(--muted);font-size:1.1rem;line-height:1;padding:2px 4px}
+.listbtns{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.listbtns button{flex:1;padding:8px;border-radius:999px;border:1.5px solid var(--line);background:transparent;cursor:pointer;font-size:.88rem;font-weight:600}
+.close{display:none}
+.fab{display:none}
+@media (max-width:999px){
+  aside.list{position:fixed;inset:auto 0 0 0;top:auto;max-height:78vh;border-radius:16px 16px 0 0;z-index:20;box-shadow:0 -10px 40px rgba(0,0,0,.25);transform:translateY(105%);transition:transform .25s ease;padding-bottom:calc(18px + env(safe-area-inset-bottom,0px))}
+  aside.list.open{transform:none}
+  .close{display:block;position:absolute;right:12px;top:12px}
+  .fab{display:flex;position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:15;background:var(--go);color:var(--go-ink);border:0;border-radius:999px;padding:12px 18px;font-weight:600;box-shadow:0 6px 20px rgba(0,0,0,.25);cursor:pointer;gap:8px}
+}
+@media (min-width:700px){.bar{position:sticky;top:env(safe-area-inset-top,0px)}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+details.status{margin-top:36px;color:var(--muted);font-size:.9rem}
+details.status summary{cursor:pointer;font-weight:600;color:var(--ink)}
+details.status table{border-collapse:collapse;margin-top:10px;width:100%;max-width:720px}
+details.status td{padding:6px 10px 6px 0;border-bottom:1px solid var(--line);vertical-align:top}
+.bad{color:var(--warn);font-weight:600}
+.statuswrap{overflow-x:auto}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1>Aanbiedingen <span class="week" id="weekLabel">deze week</span></h1>
+    <p class="lede" id="lede">Bezig met laden…</p>
+  </header>
+</div>
+
+<div class="bar">
+  <div class="wrap">
+    <div class="row">
+      <label class="search">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="q" type="search" placeholder="Zoek op product of merk, bv. koffie of Coca-Cola" aria-label="Zoek aanbiedingen" autocomplete="off">
+      </label>
+      <select id="cat" aria-label="Categorie"><option value="">Alle categorieën</option></select>
+      <select id="sort" aria-label="Sorteren">
+        <option value="discount">Hoogste korting</option>
+        <option value="price">Laagste prijs</option>
+        <option value="name">Naam A–Z</option>
+        <option value="store">Per supermarkt</option>
+      </select>
+    </div>
+    <div class="chips" id="chips" role="group" aria-label="Supermarkten"></div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="layout">
+    <main>
+      <p class="count" id="count" aria-live="polite"></p>
+      <div class="grid" id="grid"></div>
+      <button class="more" id="more" hidden>Toon meer</button>
+      <details class="status" id="statusBox" hidden>
+        <summary>Status per supermarkt</summary>
+        <div class="statuswrap"><table><tbody id="statusRows"></tbody></table></div>
+      </details>
+    </main>
+    <aside class="list" id="list" aria-label="Boodschappenlijstje">
+      <button class="x close" id="closeList" aria-label="Lijstje sluiten">✕</button>
+      <h2>Je lijstje</h2>
+      <p class="sum" id="listSum">Nog leeg. Tik bij een aanbieding op ‘Op lijstje’.</p>
+      <div id="listBody"></div>
+      <div class="listbtns" id="listBtns" hidden>
+        <button id="copyList">Kopieer lijstje</button>
+        <button id="clearList">Lijstje legen</button>
+      </div>
+    </aside>
+  </div>
+</div>
+<button class="fab" id="fab" aria-controls="list">Lijstje <span id="fabCount">0</span></button>
+
+<script>
+(() => {
+  const PAGE = 120;
+  const $ = id => document.getElementById(id);
+  const state = { offers: [], stores: {}, active: new Set(), q: "", cat: "", sort: "discount", shown: PAGE, list: loadList() };
+
+  function loadList(){ try { return JSON.parse(localStorage.getItem("aanbiedingen-lijst") || "{}"); } catch { return {}; } }
+  function saveList(){ try { localStorage.setItem("aanbiedingen-lijst", JSON.stringify(state.list)); } catch {} }
+  function loadStores(){ try { return JSON.parse(localStorage.getItem("aanbiedingen-winkels") || "null"); } catch { return null; } }
+  function saveStores(){ try { localStorage.setItem("aanbiedingen-winkels", JSON.stringify([...state.active])); } catch {} }
+
+  const euro = n => n == null ? "" : "€\u00A0" + n.toFixed(2).replace(".", ",");
+  const safeUrl = u => (typeof u === "string" && /^https?:\/\//i.test(u)) ? u : null;
+  const norm = s => (s || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  function idOf(o){ let h = 0; const s = o.store + "|" + o.name + "|" + (o.promo || "") + "|" + (o.price ?? ""); for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) | 0; return "o" + (h >>> 0).toString(36); }
+
+  function discountOf(o){
+    if (o.was_price && o.price && o.was_price > o.price) return Math.round((1 - o.price / o.was_price) * 100);
+    const p = norm(o.promo);
+    let m;
+    if ((m = p.match(/(\d+)\s*\+\s*(\d+)\s*gratis/))) return Math.round(+m[2] / (+m[1] + +m[2]) * 100);
+    if ((m = p.match(/(\d{1,2})\s*%/))) return +m[1];
+    if (/2e\s+halve\s+prijs/.test(p)) return 25;
+    if (/(\d)e\s+gratis/.test(p)) { const n = +p.match(/(\d)e\s+gratis/)[1]; return Math.round(100 / n); }
+    if (/halve\s+prijs/.test(p)) return 50;
+    return 0;
+  }
+
+  function isoWeek(d){ const t = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate())); const day = t.getUTCDay() || 7; t.setUTCDate(t.getUTCDate() + 4 - day); const y = new Date(Date.UTC(t.getUTCFullYear(), 0, 1)); return Math.ceil(((t - y) / 864e5 + 1) / 7); }
+
+  async function init(){
+    let data;
+    try {
+      const r = await fetch("data/offers.json", { cache: "no-store" });
+      if (!r.ok) throw new Error(r.status);
+      data = await r.json();
+    } catch (e) { data = { stores: [], offers: [] }; }
+
+    state.offers = (data.offers || []).map(o => ({ ...o, _id: idOf(o), _d: discountOf(o), _n: norm(o.name + " " + (o.promo || "")) }));
+    for (const s of data.stores || []) state.stores[s.id] = s;
+    const saved = loadStores();
+    const withOffers = Object.keys(state.stores).filter(id => state.offers.some(o => o.store === id));
+    state.active = new Set(saved ? saved.filter(id => withOffers.includes(id)) : withOffers);
+    if (!state.active.size) state.active = new Set(withOffers);
+
+    $("weekLabel").textContent = "week " + isoWeek(data.generated_at ? new Date(data.generated_at) : new Date());
+    const okStores = withOffers.length;
+    if (state.offers.length) {
+      const when = data.generated_at ? new Date(data.generated_at).toLocaleString("nl-NL", { weekday: "long", day: "numeric", month: "long", hour: "2-digit", minute: "2-digit" }) : "onbekend";
+      $("lede").innerHTML = "";
+      const parts = [
+        document.createTextNode(""),
+        Object.assign(document.createElement("strong"), { textContent: state.offers.length + " aanbiedingen" }),
+        document.createTextNode(" bij " + okStores + (okStores === 1 ? " supermarkt" : " supermarkten") + ". Bijgewerkt op " + when + ". Prijzen kunnen per filiaal verschillen; check de site van de winkel voor de voorwaarden.")
+      ];
+      parts.forEach(p => $("lede").appendChild(p));
+    } else {
+      $("lede").textContent = "Er zijn nog geen aanbiedingen opgehaald.";
+    }
+
+    const cats = [...new Set(state.offers.map(o => o.category || "Overig"))].sort((a, b) => a === "Overig" ? 1 : b === "Overig" ? -1 : a.localeCompare(b, "nl"));
+    for (const c of cats) $("cat").appendChild(new Option(c, c));
+
+    renderChips(); renderStatus(); render(); renderList();
+  }
+
+  function renderChips(){
+    const box = $("chips"); box.textContent = "";
+    for (const s of Object.values(state.stores)) {
+      const n = state.offers.filter(o => o.store === s.id).length;
+      if (!n) continue;
+      const b = document.createElement("button");
+      b.className = "chip"; b.type = "button";
+      b.style.setProperty("--c", s.color || "#888");
+      b.setAttribute("aria-pressed", state.active.has(s.id));
+      const dot = document.createElement("span"); dot.className = "dot";
+      const label = document.createElement("span"); label.textContent = s.name;
+      const cnt = document.createElement("small"); cnt.textContent = n;
+      b.append(dot, label, cnt);
+      b.onclick = () => {
+        state.active.has(s.id) ? state.active.delete(s.id) : state.active.add(s.id);
+        b.setAttribute("aria-pressed", state.active.has(s.id));
+        saveStores(); state.shown = PAGE; render();
+      };
+      box.appendChild(b);
+    }
+  }
+
+  function renderStatus(){
+    const rows = $("statusRows"); rows.textContent = "";
+    const list = Object.values(state.stores);
+    if (!list.length) return;
+    $("statusBox").hidden = false;
+    for (const s of list) {
+      const tr = document.createElement("tr");
+      const a = document.createElement("td"); a.textContent = s.name;
+      const b = document.createElement("td");
+      if (s.status === "ok") b.textContent = s.count + " aanbiedingen";
+      else {
+        const sp = document.createElement("span"); sp.className = "bad";
+        sp.textContent = s.stale ? "Ophalen mislukt, vorige gegevens getoond" : "Ophalen mislukt";
+        b.appendChild(sp);
+        if (s.error) { b.appendChild(document.createElement("br")); b.appendChild(document.createTextNode(s.error)); }
+      }
+      tr.append(a, b); rows.appendChild(tr);
+    }
+  }
+
+  function filtered(){
+    const words = norm(state.q).split(/\s+/).filter(Boolean);
+    let arr = state.offers.filter(o => state.active.has(o.store) && (!state.cat || (o.category || "Overig") === state.cat) && words.every(w => o._n.includes(w)));
+    const by = {
+      discount: (a, b) => b._d - a._d || (a.price ?? 999) - (b.price ?? 999),
+      price: (a, b) => (a.price ?? 999) - (b.price ?? 999),
+      name: (a, b) => a.name.localeCompare(b.name, "nl"),
+      store: (a, b) => (state.stores[a.store]?.name || "").localeCompare(state.stores[b.store]?.name || "", "nl") || b._d - a._d,
+    }[state.sort];
+    return arr.sort(by);
+  }
+
+  function render(){
+    const grid = $("grid"); grid.textContent = "";
+    if (!state.offers.length) { grid.appendChild(emptyState()); $("count").textContent = ""; $("more").hidden = true; return; }
+    const arr = filtered();
+    $("count").textContent = arr.length === 0 ? "Geen aanbiedingen gevonden. Probeer een ander zoekwoord of zet meer supermarkten aan."
+      : arr.length + (arr.length === 1 ? " aanbieding" : " aanbiedingen");
+    const frag = document.createDocumentFragment();
+    for (const o of arr.slice(0, state.shown)) frag.appendChild(card(o));
+    grid.appendChild(frag);
+    $("more").hidden = arr.length <= state.shown;
+    $("more").textContent = "Toon meer (" + (arr.length - state.shown) + ")";
+  }
+
+  function card(o){
+    const s = state.stores[o.store] || { name: o.store, color: "#888" };
+    const el = document.createElement("article");
+    el.className = "item" + (o.stale ? " stale" : "");
+    el.style.setProperty("--c", s.color || "#888");
+
+    const photo = document.createElement("div"); photo.className = "photo";
+    const img = safeUrl(o.image);
+    if (img) { const i = document.createElement("img"); i.src = img; i.alt = ""; i.loading = "lazy"; i.referrerPolicy = "no-referrer"; i.onerror = () => { i.remove(); photo.appendChild(ph()); }; photo.appendChild(i); }
+    else photo.appendChild(ph());
+
+    const body = document.createElement("div"); body.className = "body";
+    const st = document.createElement("div"); st.className = "store";
+    const sn = document.createElement("span"); sn.textContent = s.name;
+    st.appendChild(sn);
+    if (o.stale) { const w = document.createElement("span"); w.textContent = "vorige week?"; st.appendChild(w); }
+
+    const name = document.createElement("h3"); name.className = "name";
+    const url = safeUrl(o.url);
+    if (url) { const a = document.createElement("a"); a.href = url; a.target = "_blank"; a.rel = "noopener noreferrer"; a.textContent = o.name; name.appendChild(a); }
+    else name.textContent = o.name;
+
+    body.append(st, name);
+    if (o.promo || o.price != null) {
+      const tag = document.createElement("div"); tag.className = "tag";
+      if (o.promo) { const p = document.createElement("span"); p.className = "promo"; p.textContent = o.promo; tag.appendChild(p); }
+      if (o.price != null) {
+        const line = document.createElement("span"); line.className = "line";
+        const pr = document.createElement("span"); pr.className = "price"; pr.textContent = euro(o.price);
+        line.appendChild(pr);
+        if (o.was_price) { const w = document.createElement("span"); w.className = "was"; w.textContent = euro(o.was_price); line.appendChild(w); }
+        tag.appendChild(line);
+      }
+      body.appendChild(tag);
+    }
+    const btn = document.createElement("button");
+    btn.className = "add"; btn.type = "button";
+    const on = !!state.list[o._id];
+    btn.setAttribute("aria-pressed", on);
+    btn.textContent = on ? "Op je lijstje ✓" : "Op lijstje";
+    btn.onclick = () => {
+      if (state.list[o._id]) delete state.list[o._id];
+      else state.list[o._id] = { store: o.store, name: o.name, promo: o.promo || null, price: o.price ?? null };
+      saveList(); renderList();
+      const now = !!state.list[o._id];
+      btn.setAttribute("aria-pressed", now); btn.textContent = now ? "Op je lijstje ✓" : "Op lijstje";
+    };
+    body.appendChild(btn);
+    el.append(photo, body);
+    return el;
+  }
+  function ph(){ const s = document.createElement("span"); s.className = "ph"; s.textContent = "🛒"; s.setAttribute("aria-hidden", "true"); return s; }
+
+  function emptyState(){
+    const d = document.createElement("div"); d.className = "empty";
+    d.innerHTML = "<h2>Nog geen aanbiedingen</h2><p>De scraper heeft nog niet gedraaid. Start hem in GitHub via Actions → ‘Aanbiedingen bijwerken’ → Run workflow, of lokaal met <code>python scraper/scrape.py</code>.</p><p>Daarna verschijnen hier alle aanbiedingen van deze week.</p>";
+    return d;
+  }
+
+  function renderList(){
+    const items = Object.entries(state.list);
+    $("fabCount").textContent = items.length;
+    const body = $("listBody"); body.textContent = "";
+    $("listBtns").hidden = !items.length;
+    if (!items.length) { $("listSum").textContent = "Nog leeg. Tik bij een aanbieding op ‘Op lijstje’."; return; }
+    const total = items.reduce((t, [, i]) => t + (i.price || 0), 0);
+    const stores = new Set(items.map(([, i]) => i.store));
+    $("listSum").textContent = items.length + (items.length === 1 ? " product" : " producten") + " bij " + stores.size + (stores.size === 1 ? " winkel" : " winkels") + (total ? ", samen ongeveer " + euro(total) : "");
+    const groups = {};
+    for (const [id, i] of items) (groups[i.store] ||= []).push([id, i]);
+    for (const [sid, arr] of Object.entries(groups)) {
+      const s = state.stores[sid] || { name: sid, color: "#888" };
+      const h = document.createElement("h3"); h.style.setProperty("--c", s.color || "#888");
+      const dot = document.createElement("span"); dot.className = "dot";
+      h.append(dot, document.createTextNode(s.name));
+      const ul = document.createElement("ul");
+      for (const [id, i] of arr) {
+        const li = document.createElement("li");
+        const t = document.createElement("span"); t.textContent = i.name;
+        if (i.promo) { const em = document.createElement("em"); em.textContent = i.promo; t.appendChild(em); }
+        const b = document.createElement("b"); b.textContent = euro(i.price);
+        const x = document.createElement("button"); x.className = "x"; x.textContent = "✕"; x.setAttribute("aria-label", "Verwijder " + i.name);
+        x.onclick = () => { delete state.list[id]; saveList(); renderList(); render(); };
+        li.append(t, b, x); ul.appendChild(li);
+      }
+      body.append(h, ul);
+    }
+  }
+
+  $("q").addEventListener("input", e => { state.q = e.target.value; state.shown = PAGE; render(); });
+  $("cat").addEventListener("change", e => { state.cat = e.target.value; state.shown = PAGE; render(); });
+  $("sort").addEventListener("change", e => { state.sort = e.target.value; render(); });
+  $("more").addEventListener("click", () => { state.shown += PAGE; render(); });
+  $("fab").addEventListener("click", () => $("list").classList.add("open"));
+  $("closeList").addEventListener("click", () => $("list").classList.remove("open"));
+  $("clearList").addEventListener("click", () => { state.list = {}; saveList(); renderList(); render(); });
+  $("copyList").addEventListener("click", async () => {
+    const groups = {};
+    for (const i of Object.values(state.list)) (groups[i.store] ||= []).push(i);
+    const txt = Object.entries(groups).map(([sid, arr]) => (state.stores[sid]?.name || sid) + "\n" + arr.map(i => "- " + i.name + (i.promo ? " (" + i.promo + ")" : "") + (i.price != null ? " " + euro(i.price) : "")).join("\n")).join("\n\n");
+    try { await navigator.clipboard.writeText(txt); $("copyList").textContent = "Gekopieerd"; }
+    catch { $("copyList").textContent = "Kopiëren niet gelukt"; }
+    setTimeout(() => $("copyList").textContent = "Kopieer lijstje", 1800);
+  });
+
+  init();
+})();
+</script>
+</body>
+</html>
